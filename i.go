@@ -18,9 +18,9 @@ var (
 	// the address to listen on
 	address = "127.0.0.1:9005"
 	// the directory to save the images in
-	root = "/var/www/i.fourtf.com/"
+	root = "/var/www/i/"
 	// the root of the link that will be generated
-	webRoot = "https://i.fourtf.com/"
+	webRoot = "https://i.asd.com/"
 
 	// maximum age for the files
 	// the program will delete the files older than maxAge every 2 hours
@@ -29,7 +29,7 @@ var (
 	deleteIgnoreRegexp = regexp.MustCompile("index\\.html|favicon\\.ico")
 
 	// length of the random filename
-	randomAdjectivesCount = 2
+	randomAdjectivesCount = 6
 	adjectives            = make([]string, 0)
 	filetypes             = make(map[string]string)
 )
@@ -47,13 +47,13 @@ func main() {
 		} else {
 			for val, keys := range data {
 				for _, key := range keys {
-					filetypes["." + strings.TrimLeft(key, ".")] = val
+					filetypes["."+strings.TrimLeft(key, ".")] = val
 				}
 			}
 		}
 	}
 
-    fmt.Println(filetypes)
+	fmt.Println(filetypes)
 
 	file, err := os.Open("./adjectives1.txt")
 
@@ -75,10 +75,10 @@ func main() {
 
 	// uncomment to collect old files
 	// go func() {
-	// 	for {
-	// 		<-time.After(time.Hour * 2)
-	// 		collectGarbage()
-	// 	}
+	//      for {
+	//              <-time.After(time.Hour * 2)
+	//              collectGarbage()
+	//      }
 	// }()
 
 	// create server with read and write timeouts and the desired address
@@ -119,7 +119,7 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 
 	lastWord := "File"
 
-    fmt.Println(ext)
+	fmt.Println(ext)
 
 	if val, ok := filetypes[ext]; ok {
 		lastWord = strings.Title(val)
@@ -129,7 +129,7 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 	var link string
 
 	// find a random filename that doesn't exist already
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 100; {
 		random := ""
 
 		for j := 0; j < randomAdjectivesCount; j++ {
