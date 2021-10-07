@@ -1,0 +1,17 @@
+[Unit]
+Description=i - Image and files host
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+# Binary File
+ExecStart=/mnt/blockstorage/i/m
+# Folder containing the binary
+WorkingDirectory=/mnt/blockstorage/i
+
+[Install]
+WantedBy=multi-user.target
